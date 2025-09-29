@@ -1,70 +1,90 @@
 #include <iostream>
 using namespace std;
 
-// Deklarasi struktur node
+// deklarasi struktur node
+// bikin struktur data node untuk linked list, terus nyimpen nilai (angka) yang masuk ke stack
 struct node {
     int value;
-    node *next;
+    node *next; // pointer ke node berikutnya (kayak rantai penghubung)
 };
 
-// Deklarasi di awal dulu yaa
+// deklarasi di awal dulu yaa sebagai penanda paling atas (top) stack, awalnya kosong (NULL)
 node* top = NULL;
 
-// Buat nambah data intinya, tapi naruh dari atas karena stacking
-void push(int n) {
+// buat nambah data intinya, tapi naruh dari atas karena stacking
+/* 
+1. bkin node baru dulu di memori
+2. node tadi diisi dgn value yang di input user
+3. baru node baru tadi sambungkan ke node paling atas (sebagai headnya)
+*/
+void push(int n) 
+{
     node* newnode = new node;
-    newnode -> value = n;
-    newnode -> next = top;
+    newnode -> value = n; 
+    newnode -> next = top;   
 
-    top = newnode;
+    top = newnode;       
 
     cout << n << " ditambahkan ke stack.\n";
 }
 
 // hapus data, dari atas juga
-void pop() {
-    if (top == NULL) 
+/* 
+1. cek dulu, klo stack kosong yauda return
+2. klo engga, node paling di put di variabel temp
+3. geser dulu status top ke node di bawahnya
+4. hapus node temp tadi
+*/
+void pop() 
+{                       
+    if (top == NULL)              
     {
-        cout << "List kosong!\n";
-        return;
+        cout << "List kosong!\n";   
+        return;                  
     }
 
     cout << top->value << " dihapus dari stack.\n";
 
-    node* temp = top;
-    top = top->next;
-    delete temp;
+    node* temp = top;    
+    top = top->next;     
+    delete temp;       
 }
 
 // tampilkan, display
-void printStack() {
-    if (top == NULL) 
+/*
+1. cek dulu, klo stack kosong yauda return
+2. display ini bakal mulai dari paling top
+3. then looping selama node itu gak null
+4. nah dalam looping itu temp nya bakal otomatis move ke next node, makanya bakal sampe akhir
+*/
+void printStack() {                  
+    if (top == NULL)                  
     {
-        cout << "Stack kosong!\n";
-        return;
+        cout << "Stack kosong!\n";   
+        return;                      
     }
 
-    cout << "Isi stack: ";
-    node* temp = top;
+    cout << "Isi stack: ";           
+    node* temp = top;                 
 
-    while (temp != NULL) 
+    while (temp != NULL)              
     {
-        cout << temp->value << " -> ";
-        temp = temp->next;
+        cout << temp->value << " -> "; 
+        temp = temp->next;            
     }
-    cout << "NULL\n";
+    cout << "NULL\n";                 
 }
 
-int main() {
-    push(10);
-    push(20);
-    push(30);
+int main() {          
+    push(10);      
+    push(20);       
+    push(30);        
 
-    printStack();
+    printStack();     
 
-    pop();
+    pop();          
 
-    printStack();
+    printStack();     
 
     return 0;
 }
